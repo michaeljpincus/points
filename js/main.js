@@ -10,7 +10,7 @@ const BASEMAP_STYLE = 'https://michaeljpincus.github.io/basemap/basemap.json';
 const CUISINE_FIELD = 'CUISINE';
 
 const TOP_N = 10;
-const OTHER_COLOR = '#aaa';
+const OTHER_COLOR = '#000';
 const PALETTE = [
   '#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231',
   '#911eb4', '#42d4f4', '#f032e6', '#9a6324', '#469990'
@@ -42,6 +42,10 @@ const resetButton = document.getElementById('reset-zoom');
 // ============================================================================
 
 map.on('load', async () => {
+
+  const attrib = document.querySelector('.maplibregl-ctrl-attrib');
+  attrib?.classList.remove('maplibregl-compact-show');
+  attrib?.removeAttribute('open');
   // --- Data + layer ---------------------------------------------------------
   const res = await fetch('restaurants.geojson');
   const data = await res.json();
@@ -181,9 +185,6 @@ function toTitleCase(str) {
 // UI buttons
 // ============================================================================
 
-document.getElementById('splash-close').addEventListener('click', () => {
-  document.getElementById('splash').classList.add('hidden');
-});
 
 resetButton.addEventListener('click', () => {
   map.flyTo({
