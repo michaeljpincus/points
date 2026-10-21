@@ -214,10 +214,20 @@ html, body {
 }
 
 /* ==========================================================================
-   Media responsive css
+   Mobile layout (tablets and phones)
+   The filter panel becomes a bottom sheet so it no longer covers the map
+   from the side. The map fills the rest of the screen above it.
    ========================================================================== */
 
 @media (max-width: 768px) {
+  /* Use the dynamic viewport height so the browser's address bar
+     doesn't push the footer off-screen on phones */
+  #map {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Controls that don't work well on touch screens */
   #reset-zoom {
     display: none !important;
   }
@@ -226,22 +236,129 @@ html, body {
     display: none !important;
   }
 
+  /* Splash */
   #splash-content {
     font-size: 16px;
+    padding: 20px;
+    text-align: left;
+    text-align-last: left;
   }
 
   #splash-content h1 {
     font-size: 22px;
+    text-align: center;
   }
 
   #splash-close {
     font-size: 18px;
+    padding: 12px 28px;
+  }
+
+  /* Title bar */
+  #map-title {
+    font-size: 16px;
+    padding: 8px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* Filter panel: bottom sheet above the footer and map attribution */
+  .filter-panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 58px;
+    width: auto;
+    height: 36vh;
+    height: 36dvh;
+    max-height: 320px;
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+
+  .filter-panel h2 {
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+
+  .filter-actions {
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .filter-actions a {
+    display: inline-block;
+    padding: 4px 0;
+    margin-right: 18px;
+  }
+
+  /* Bigger tap targets for each cuisine row */
+  #checkboxes {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  #checkboxes label {
+    padding: 9px 0;
+    font-size: 15px;
+  }
+
+  #checkboxes input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+  }
+
+  /* Footer */
+  #map-footer {
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  /* Popups */
+  .maplibregl-popup-content {
+    padding: 6px 10px;
+    font-size: 15px;
+  }
+
+  .restaurant-cuisine {
+    font-size: 14px;
+  }
+}
+
+/* Small phones: shrink the sheet a little more */
+@media (max-width: 400px) {
+  #map-title {
+    font-size: 15px;
+  }
+
+  .filter-panel {
+    left: 6px;
+    right: 6px;
+    height: 34vh;
+    height: 34dvh;
+  }
+}
+
+/* Phones in landscape: not enough height for a bottom sheet,
+   so put the panel back on the side, narrower */
+@media (max-width: 900px) and (max-height: 500px) {
+  .filter-panel {
+    top: 50px;
+    left: auto;
+    right: 8px;
+    bottom: 40px;
+    width: 240px;
+    height: auto;
+    max-height: none;
   }
 
   #map-title {
-    font-size: 18px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+    padding: 6px 12px;
   }
 }
